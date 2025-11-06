@@ -16,6 +16,7 @@ PaymentWindows::PaymentWindows(QWidget *parent) : QWidget(parent), ui(new Ui::Pa
     timer = new QTimer(this);
 
     connect(timer, &QTimer::timeout, this, &PaymentWindows::updateDateTime);
+    connect(ui->backButton, &QPushButton::clicked, this, &PaymentWindows::on_backButton_clicked);
 
     timer->start(1000);
 
@@ -54,4 +55,10 @@ void PaymentWindows::setPaymentAmount(double amount)
     QString amountText = QString::number(amount, 'f', 2) + " PLN";
     // Upewnij się, że masz QLabel o nazwie finalAmountLabel w pliku paymentwindows.ui
     ui->toPayValue->setText(amountText);
+}
+
+void PaymentWindows::on_backButton_clicked()
+{
+    // Zamknij okno płatności
+    this->close();
 }

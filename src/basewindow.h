@@ -39,10 +39,14 @@ private slots:
     // Slot dla przycisku "-" biletu ulgowego
     void on_reducedTicketMinus_clicked();
 
+    void on_buyButton_clicked();
+
 private:
     Ui::baseWindow *ui;
     QTimer *timer;
     void updateSum();
+
+    double calculateSum();
 
     // **Stałe** przechowujące ceny biletów
     const double normalTicketPrice = 5.00;

@@ -6,11 +6,14 @@
 
 #include "basewindow.h"
 #include "ui_basewindow.h"
+#include "paymentwindows.h"
+#include <QMessageBox>
 
 
 BaseWindow::BaseWindow(QWidget *parent) : QWidget(parent), ui(new Ui::baseWindow) {
     ui->setupUi(this);
     timer = new QTimer(this);
+    this->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(timer, &QTimer::timeout, this, &BaseWindow::updateDateTime);
 
@@ -75,12 +78,50 @@ void BaseWindow::on_reducedTicketMinus_clicked()
     }
 }
 
+void BaseWindow::on_buyButton_clicked()
+{
+    // 1. Oblicz łączną kwotę do przekazania
+    double finalSum = calculateSum();
+
+    if (finalSum <= 0.0) {
+        QMessageBox::warning(this, "Błąd", "Wybierz przynajmniej jeden bilet!");
+        return;
+    }
+
+     //this->hide();
+
+
+
+    // Tworzymy nowe okno, jeśli nie zostało jeszcze stworzone
+    PaymentWindows *paymentWindow = new PaymentWindows(nullptr);
+    // Użycie "this" jako parenta jest opcjonalne, ale zalecane
+
+    // Opcjonalnie: Ustawienie atrybutu DeleteOnClose, aby okno się usunęło po zamknięciu
+    paymentWindow->setAttribute(Qt::WA_DeleteOnClose);
+
+
+    // 3. PRZEKAZANIE DANYCH: Wywołujemy metodę w oknie płatności (patrz Krok 2)
+    paymentWindow->setPaymentAmount(finalSum);
+
+    // 4. Pokaż okno (lub dwa, jeśli masz coinwindow)
+    paymentWindow->show();
+    // coinWindow->show(); // Pokaż okno z monetami, jeśli je zaimplementowałeś
+
+}
+
 // --- FUNKCJA SUMUJĄCA (BEZ ZMIAN) ---
 
 void BaseWindow::updateSum()
 {
-    // Zmienne stanowe usunięte, wartości pobierane z QSpinBox.
-    const double normalTicketPrice = 5.00; // Używamy stałych
+    double totalSum = calculateSum();
+    QString sumText = QString::number(totalSum, 'f', 2) + " zł";
+    ui->sumValue->setText(sumText);
+}
+
+
+double BaseWindow::calculateSum()
+{
+    const double normalTicketPrice = 5.00;
     const double reducedTicketPrice = 2.50;
 
     int normalCount = ui->normalTicketAmount->value();
@@ -89,7 +130,5 @@ void BaseWindow::updateSum()
     double totalSum = (normalCount * normalTicketPrice) +
                       (reducedCount * reducedTicketPrice);
 
-    QString sumText = QString::number(totalSum, 'f', 2) + " zł";
-    ui->sumValue->setText(sumText);
-
+    return totalSum; // Zwracamy czystą wartość!
 }

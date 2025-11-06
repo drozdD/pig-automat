@@ -27,6 +27,8 @@ public:
     ~PaymentWindows() override;
     void setPaymentAmount(double amount);
 
+    void on_backButton_clicked();
+
 protected:
     void showEvent(QShowEvent *event) override;
 
