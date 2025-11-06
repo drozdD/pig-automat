@@ -29,6 +29,12 @@ public:
 
     void on_backButton_clicked();
 
+signals: // <--- DODAJ TĘ SEKCJĘ
+    void backButtonWasClicked(); // <--- DODAJ TĘ LINIĘ
+
+public slots: // <--- DODAJ TĘ SEKCJĘ (lub dodaj do istniejącej, jeśli masz)
+    void processCoin(double value);
+
 protected:
     void showEvent(QShowEvent *event) override;
 
@@ -41,6 +47,7 @@ private:
     Ui::PaymentWindows *ui;
     QTimer *timer; // 4. Dodaj prywatny wskaźnik na QTimer
     double amountToPay = 0.0;
+    double amountPaid = 0.0;
 };
 
 

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>CoinWindow</class>
+ <widget class="QWidget" name="CoinWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>349</width>
+    <width>344</width>
     <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>CoinWindow</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>0</y>
+     <y>10</y>
      <width>331</width>
      <height>301</height>
     </rect>
@@ -26,7 +26,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="push_5">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -39,7 +39,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="push_2">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -52,7 +52,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="push_1">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -69,7 +69,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="push_50">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -82,7 +82,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="push_20">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -95,7 +95,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_6">
+       <widget class="QPushButton" name="push_10">
         <property name="minimumSize">
          <size>
           <width>50</width>

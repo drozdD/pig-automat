@@ -7,6 +7,7 @@
 #include "basewindow.h"
 #include "ui_basewindow.h"
 #include "paymentwindows.h"
+#include "coinwindow.h"
 #include <QMessageBox>
 
 
@@ -88,10 +89,6 @@ void BaseWindow::on_buyButton_clicked()
         return;
     }
 
-     //this->hide();
-
-
-
     // Tworzymy nowe okno, jeśli nie zostało jeszcze stworzone
     PaymentWindows *paymentWindow = new PaymentWindows(nullptr);
     // Użycie "this" jako parenta jest opcjonalne, ale zalecane
@@ -105,8 +102,24 @@ void BaseWindow::on_buyButton_clicked()
 
     // 4. Pokaż okno (lub dwa, jeśli masz coinwindow)
     paymentWindow->show();
-    // coinWindow->show(); // Pokaż okno z monetami, jeśli je zaimplementowałeś
 
+    CoinWindow *coinWindow = new CoinWindow(nullptr);
+    coinWindow->setAttribute(Qt::WA_DeleteOnClose);
+
+    // 4. Ustawienie pozycji CoinWindow obok PaymentWindow
+    // Pobierz pozycję i wymiary okna płatności, aby umieścić okno monet obok.
+    QPoint currentPos = paymentWindow->pos();
+
+    // Przesuń CoinWindow, aby było 20 pikseli na prawo od PaymentWindow
+    coinWindow->move(currentPos.x() + paymentWindow->width() + 20, currentPos.y());
+
+    coinWindow->show();
+
+    connect(paymentWindow, &PaymentWindows::backButtonWasClicked,
+            coinWindow, &CoinWindow::close);
+
+    connect(coinWindow, &CoinWindow::coinInserted,
+            paymentWindow, &PaymentWindows::processCoin);
 }
 
 // --- FUNKCJA SUMUJĄCA (BEZ ZMIAN) ---

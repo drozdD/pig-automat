@@ -27,11 +27,13 @@ set(SOURCES
         src/basewindow.h
         src/paymentwindows.cpp
         src/paymentwindows.h
+        src/coinwindow.cpp
+        src/coinwindow.h
 )
 
 set(FORMS
         src/paymentwindows.ui
-        # Prawdopodobnie tu brakuje:
+        src/coinwindow.ui
         src/basewindow.ui
 )
 

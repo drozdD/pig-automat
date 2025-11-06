@@ -7,8 +7,9 @@
 #include "paymentwindows.h"
 
 #include <QPushButton>
+#include <ui_paymentwindows.h>
 
-#include "ui_paymentwindows.h"
+#include "coinwindow.h"
 
 
 PaymentWindows::PaymentWindows(QWidget *parent) : QWidget(parent), ui(new Ui::PaymentWindows) {
@@ -50,15 +51,43 @@ void PaymentWindows::updateDateTime()
 void PaymentWindows::setPaymentAmount(double amount)
 {
     amountToPay = amount; // Zapisz kwotę wewnętrznie
+    amountPaid = 0.0;
 
     // Formatowanie kwoty i wyświetlanie w labelu
     QString amountText = QString::number(amount, 'f', 2) + " PLN";
     // Upewnij się, że masz QLabel o nazwie finalAmountLabel w pliku paymentwindows.ui
     ui->toPayValue->setText(amountText);
+
+    if (ui->paidValue) { // Sprawdzenie, czy label istnieje
+        ui->paidValue->setText("0.00 PLN");
+    }
+}
+
+void PaymentWindows::processCoin(double value)
+{
+    amountPaid += value; // Dodaj wartość monety do sumy wpłat
+
+    double remainingToPay = amountToPay - amountPaid;
+
+    // Aktualizuj etykietę 'paidValue' (wpłacono)
+    // UPEWNIJ SIĘ, ŻE DODAŁEŚ LABEL 'paidValue' w pliku .ui
+    if (ui->paidValue) {
+        ui->paidValue->setText(QString::number(amountPaid, 'f', 2) + " PLN");
+    }
+
+    // Aktualizuj etykietę 'toPayValue' (pozostało)
+    if (remainingToPay <= 0) {
+        ui->toPayValue->setText("0.00 PLN");
+        // Tutaj możesz dodać logikę zakończenia płatności,
+        // np. zamknięcie okien lub pokazanie komunikatu "Dziękujemy"
+    } else {
+        ui->toPayValue->setText(QString::number(remainingToPay, 'f', 2) + " PLN");
+    }
 }
 
 void PaymentWindows::on_backButton_clicked()
 {
     // Zamknij okno płatności
+    emit backButtonWasClicked();
     this->close();
 }

@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QStackedWidget>
 #include "basewindow.h"
+#include "coinwindow.h"
 #include "paymentwindows.h"
 
 int main(int argc, char *argv[]) {
@@ -8,9 +9,11 @@ int main(int argc, char *argv[]) {
     QStackedWidget stack;
     auto *baseWindow = new BaseWindow();
     auto *paymentWindow = new PaymentWindows();
+    auto *coinWindow = new CoinWindow();
 
     stack.addWidget(baseWindow);
     stack.addWidget(paymentWindow);
+    stack.addWidget(coinWindow);
     stack.setGeometry(baseWindow->geometry());
 
     stack.show();

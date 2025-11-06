@@ -9,6 +9,7 @@
 
 #include <QWidget>
 #include "paymentwindows.h"
+#include "coinwindow.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -53,7 +54,7 @@ private:
     const double reducedTicketPrice = 2.50;
 
     PaymentWindows *paymentWindow = nullptr;
-    // CoinWindow *coinWindow = nullptr; // Jeśli byś stworzył
+    CoinWindow *coinWindow = nullptr; // Jeśli byś stworzył
 };
 
 
